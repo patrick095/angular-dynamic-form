@@ -1,0 +1,34 @@
+<ng-container *ngFor="let group of formGroups">
+    <form [formGroup]="form">
+    <h2 *ngIf="group.title">{{ group.title }}</h2>
+    <ng-container *ngFor="let input of group.inputs">
+            <div [ngClass]="['mb-3', input.col]" *ngIf="checkDependencies(input.dependencies)" [ngSwitch]="input.tag">
+                <label [for]="input.name" class="form-label" *ngIf="input.label">
+                    {{ input.label }}: {{ input.isRequired ? '*' : '' }}
+                </label>
+                <input
+                    *ngSwitchCase="'input'"
+                    [type]="input.type"
+                    class="form-control"
+                    [id]="input.name"
+                    [placeholder]="input.placeholder ?? ''"
+                    [formControlName]="input.name"
+                    [value]="input.value"
+                >
+
+                <select
+                    *ngSwitchCase="'select'"
+                    class="form-select"
+                    [id]="input.name"
+                    [formControlName]="input.name"
+                >
+                    <option value="" disabled selected>Select One</option>
+                    <option
+                        *ngFor="let option of input.options"
+                        [value]="option.value"
+                        >{{ option.key }}</option>
+                </select>
+            </div>
+        </ng-container>
+    </form>
+</ng-container>

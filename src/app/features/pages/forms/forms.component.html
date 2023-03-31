@@ -1,0 +1,6 @@
+<div class="container-sm" *ngIf="formData && formData.length">
+    <app-dynamic-form [form]="form" [formGroups]="formData"></app-dynamic-form>
+    <div class="container">
+        <button type="button" class="btn btn-primary" (click)="submit()">Submit</button>
+    </div>
+</div>
